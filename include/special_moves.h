@@ -5,44 +5,21 @@
 
 #include "helpers.h"
 
-typedef enum
-{
-    WHITE,
-    BLACK
-} turn;
+extern const int8_t white_castle_king_side;
+extern const int8_t white_castle_queen_side;
+extern const int8_t black_castle_king_side;
+extern const int8_t black_castle_queen_side;
+extern const int8_t all_castles_possible;
 
-typedef enum
-{
-    FIRST_MOVE = 1,
-    KING_CASTLE,
-    QUEEN_CASTLE,
-    EN_PASSANT
-} special;
-
-typedef struct
-{
-    int srcR;
-    int srcC;
-    int destR;
-    int destC;
-    special sp;
-    int isValid;
-} move;
-
-extern const int8_t whiteCastleKingSide;
-extern const int8_t whiteCastleQueenSide;
-extern const int8_t blackCastleKingSide;
-extern const int8_t blackCastleQueenSide;
-extern const int8_t allCastlesPossible;
-
-void handlePawnConversion(wchar_t[8][8], move, turn);
-void handleEnPassant(wchar_t[8][8], move);
-int canEnPassant(wchar_t[8][8], wchar_t, move, int, int);
-int isEnPassant(wchar_t[8][8], move);
-int8_t handleKingSideCastle(wchar_t[8][8], int8_t, turn);
-int8_t handleQueenSideCastle(wchar_t[8][8], int8_t, turn);
-int8_t updateCastleConfig(wchar_t, move, int8_t);
-int canKingSideCastle(wchar_t, int8_t);
-int canQueenSideCastle(wchar_t, int8_t);
+int handle_pawn_conversion(u_int8_t[8][8], move, turn);
+int handle_en_passant(u_int8_t[8][8], move);
+int can_en_passant(u_int8_t[8][8], u_int8_t, move, int, int);
+int is_en_passant(u_int8_t[8][8], move);
+int handle_castle(u_int8_t[8][8], int8_t *, turn, special);
+int update_castle_config(u_int8_t, move, int8_t *);
+int can_castle_king_side(turn, int8_t);
+int can_castle_queen_side(turn, int8_t);
+int disable_king_castle(int8_t *, turn);
+int disable_queen_castle(int8_t *, turn);
 
 #endif
