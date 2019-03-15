@@ -1,3 +1,7 @@
+// This file contains a multithreaded implementation of the Shear Sort algorithm.
+// Author: Stephen Davidson
+// Email: scd@iastate.edu
+
 #include "shear_sort.h"
 
 // done - shared variable that tracks when threads complete phases.
@@ -51,7 +55,8 @@ mesh_config read_mesh_from_file(char *filepath)
     }
 
     char ch = fgetc(file);
-    int rowCount, colCount;
+    int rowCount = 0;
+    int colCount = 0;
     while (ch != EOF)
     {
         if (ch == ' ')
@@ -69,7 +74,7 @@ mesh_config read_mesh_from_file(char *filepath)
     int num_cols = colCount / (rowCount - 1);
     if (num_rows != num_cols)
     {
-        printf("Provided mesh in %s is not a square.\n", filepath);
+        printf("Provided mesh in %s is not a square. Has dimensions: %d x %d\n", filepath, rowCount, colCount);
         exit(0);
     }
 
@@ -83,10 +88,11 @@ mesh_config read_mesh_from_file(char *filepath)
         exit(0);
     }
 
-    int i, j;
+    int i = 0;
+    int j = 0;
     while (i < num_rows && j < num_cols)
     {
-        int num;
+        int num = 0;
         fscanf(file, "%d", &num);
         *(mesh + i * num_cols + j) = num;
 
@@ -118,7 +124,7 @@ void *shear_sort(void *param)
     int num_rows = ctx.m_cfg.num_rows;
     int num_cols = ctx.m_cfg.num_cols;
 
-    u_int64_t attempts;
+    u_int64_t attempts = 0;
     while (attempts < INT_MAX / ctx.num_threads) // to avoid overflows
     {
         // Check if the mesh is sorted
@@ -223,7 +229,7 @@ int mesh_is_sorted(int *mesh, int num_rows, int num_cols)
             (direction == -1 && j >= 0))
         {
             int current = *((mesh + i * num_cols) + j);
-            int next;
+            int next = 0;
 
             if (j + direction < 0 || j + direction == num_cols)
             {

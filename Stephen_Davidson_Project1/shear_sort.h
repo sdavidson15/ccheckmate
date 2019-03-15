@@ -1,3 +1,7 @@
+// This file contains header definitions for functions, utility structs, and enums used in shear_sort.c.
+// Author: Stephen Davidson
+// Email: scd@iastate.edu
+
 #ifndef SHEAR_SORT_H
 #define SHEAR_SORT_H
 
